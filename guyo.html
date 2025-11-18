@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CMG Fitness Gym</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: black;
+    color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #222;
+    border-radius: 8px;
+    box-shadow: 0 0 15px yellow;
+    padding: 20px 30px;
+    width: 360px;
+    text-align: center;
+  }
+  h2 {
+    color: yellow;
+    margin-bottom: 20px;
+  }
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 18px;
+    letter-spacing: 4px;
+    background: black;
+    border: 2px solid yellow;
+    border-radius: 5px;
+    color: yellow;
+    outline: none;
+    text-align: center;
+  }
+  input[type="password"]::placeholder {
+    color: #888800;
+  }
+  button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: yellow;
+    color: black;
+    padding: 12px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(255, 255, 0, 0.4);
+  }
+  button:hover {
+    background-color: #e6d800;
+  }
+  #logoutSection, #profileSection, #loginContainer {
+    display: none;
+  }
+  #loginContainer {
+    display: block;
+  }
+  #profileSection p {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  #timeLog {
+    margin-top: 15px;
+    font-size: 14px;
+    font-style: italic;
+    color: #ccc600;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="loginContainer">
+  <h2>CMG Fitness Gym</h2>
+  <input type="password" id="pin" maxlength="6" placeholder="Enter 6-digit PIN" pattern="\d{6}" inputmode="numeric" />
+  <button onclick="login()">Log In</button>
+</div>
+
+<div class="container" id="profileSection">
+  <h2>Member Profile</h2>
+  <p><strong>Name:</strong> Neil Caesar J. Guyo</p>
+  <p><strong>Age:</strong> 22</p>
+  <p><strong>Height:</strong> 5'7"</p>
+  <p><strong>Weight:</strong> 78 Kg</p>
+  <div id="timeLog">You logged in at: <span id="loginTime"></span></div>
+  <button onclick="logout()">Log Out</button>
+</div>
+
+<div class="container" id="logoutSection">
+  <h2>CMG Fitness Gym</h2>
+  <p>You logged out at:</p>
+  <div id="logoutTime" style="font-style: italic; font-size: 16px; color: yellow;"></div>
+  <button onclick="backToLogin()">Back to Login</button>
+</div>
+
+<script>
+  function formatTime(date) {
+    return date.toLocaleString();
+  }
+
+  function login() {
+    const pin = document.getElementById("pin").value;
+    const pinRegex = /^\d{6}$/;
+    if(pinRegex.test(pin) && pin === "123456") {
+      const loginDate = new Date();
+      document.getElementById("loginTime").innerText = formatTime(loginDate);
+      document.getElementById("loginContainer").style.display = "none";
+      document.getElementById("profileSection").style.display = "block";
+      document.getElementById("logoutSection").style.display = "none";
+    } else {
+      alert("Invalid PIN. Please enter a 6-digit PIN.");
+    }
+  }
+
+  function logout() {
+    const logoutDate = new Date();
+    document.getElementById("logoutTime").innerText = formatTime(logoutDate);
+    document.getElementById("profileSection").style.display = "none";
+    document.getElementById("logoutSection").style.display = "block";
+  }
+
+  function backToLogin() {
+    document.getElementById("logoutSection").style.display = "none";
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("pin").value = "";
+  }
+</script>
+
+</body>
+</html>
